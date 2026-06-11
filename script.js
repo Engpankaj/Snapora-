@@ -1,5 +1,11 @@
 // Basic JavaScript functionality for Snapora
-const API_BASE_URL = 'http://localhost:3000/api';
+// TODO: Isko apne deployed backend URL se replace karna hoga
+// Example (Render): const API_BASE_URL = 'https://your-backend.onrender.com/api';
+// Example (Vercel): const API_BASE_URL = 'https://your-vercel-url/api';
+// Render backend
+const API_BASE_URL = 'https://snapora-jwxi.onrender.com/api';
+// Vercel backend (agar use karna ho to is line ko uncomment karein aur Render wali comment out kar dein)
+// const API_BASE_URL = 'https://snapora-bice.vercel.app/api';
 
 // Slideshow functionality
 document.addEventListener('DOMContentLoaded', function() {
