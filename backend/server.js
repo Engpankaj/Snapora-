@@ -12,7 +12,10 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'snapora_secret_key';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://snapora-bice.vercel.app",
+  credentials: true
+}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
