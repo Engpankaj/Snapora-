@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - Snapora</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Snapora</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="explore.html" class="active">Explore</a></li>
+                    <li><a href="upload.html">Upload</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" id="auth-buttons">
+                <a href="login.html" class="btn btn-outline">Log In</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Explore Section -->
+    <section class="explore-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Explore Amazing Visuals</h2>
+                <p>Discover inspiring images from our creative community</p>
+<div class="discover-text">
+                <h2 id="discover-message">Discover. Share. Inspire.</h2>
+            </div>
+            </div>
+            
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="category">Category:</label>
+                    <select id="category">
+                        <option value="all">All</option>
+                        <option value="nature">Nature</option>
+                        <option value="art">Art</option>
+                        <option value="photography">Photography</option>
+                        <option value="design">Design</option>
+                        <option value="people-lifestyle">People & Lifestyle</option>
+                        <option value="travel-places">Travel & Places</option>
+                        <option value="food-drinks">Food & Drinks</option>
+                        <option value="animals-pets">Animals & Pets</option>
+                        <option value="technology">Technology</option>
+                        <option value="events-celebrations">Events & Celebrations</option>
+                        <option value="fashion-style">Fashion & Style</option>
+                        <option value="fantasy-abstract">Fantasy & Abstract</option>
+                        <option value="history-culture">History & Culture</option>
+                        <option value="vehicles">Vehicles</option>
+                        <option value="anime">Anime</option>
+                        <option value="cartoons">Cartoons</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="sort">Sort by:</label>
+                    <select id="sort">
+                        <option value="popular">Most Popular</option>
+                        <option value="recent">Most Recent</option>
+                        <option value="liked">Most Liked</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="image-grid">
+                <!-- Images will be loaded here by JavaScript -->
+            </div>
+            
+            <div class="load-more">
+                <button class="btn btn-outline">Load More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Snapora</h2>
+                    <p>Discover. Share. Inspire.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="explore.html">Explore</a></li>
+                        <li><a href="upload.html">Upload</a></li>
+                        <li><a href="login.html" id="footer-login-link">Login</a></li>
+                        <li><a href="signup.html" id="footer-signup-link">Sign Up</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html" target="_blank">Terms of Service</a></li>
+                        <li><a href="privacy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="copyright.html" target="_blank">Copyright</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/19J9ZTg4nX/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/pankaj__kumar14345/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.pinterest.com/" target="_blank"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Snapora. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
