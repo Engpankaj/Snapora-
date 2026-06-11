@@ -14,7 +14,9 @@
             <div class="logo">
                 <h1>Snapora</h1>
             </div>
-            <nav>
+
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav" aria-label="Primary navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="explore.html">Explore</a></li>
@@ -22,12 +24,36 @@
                     <li><a href="profile.html">Profile</a></li>
                 </ul>
             </nav>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Auth Buttons (desktop) -->
             <div class="auth-buttons">
                 <a href="login.html" class="btn btn-outline">Log In</a>
                 <a href="signup.html" class="btn btn-primary">Sign Up</a>
             </div>
         </div>
+
+        <!-- Mobile Menu Panel -->
+        <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="upload.html" class="active">Upload</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li class="mobile-auth" id="mobile-auth">
+                    <a href="login.html" class="btn btn-outline">Log In</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </li>
+            </ul>
+        </div>
     </header>
+
 
     <!-- Upload Section -->
     <section class="upload-section">
@@ -147,91 +173,8 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Upload page specific JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            const uploadArea = document.getElementById('uploadArea');
-            const fileInput = document.getElementById('fileInput');
-            const browseBtn = document.getElementById('browseBtn');
-            const previewContainer = document.getElementById('previewContainer');
-            const imagePreview = document.getElementById('imagePreview');
-            
-            // Click on browse button triggers file input
-            browseBtn.addEventListener('click', function() {
-                fileInput.click();
-            });
-            
-            // Drag and drop functionality
-            uploadArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                uploadArea.classList.add('drag-over');
-            });
-            
-            uploadArea.addEventListener('dragleave', function() {
-                uploadArea.classList.remove('drag-over');
-            });
-            
-            uploadArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                uploadArea.classList.remove('drag-over');
-                
-                const files = e.dataTransfer.files;
-                handleFiles(files);
-            });
-            
-            // File input change
-            fileInput.addEventListener('change', function() {
-                handleFiles(this.files);
-            });
-            
-            // Handle selected files
-            function handleFiles(files) {
-                if (files.length > 0) {
-                    // For simplicity, we'll just show the first file
-                    const file = files[0];
-                    
-                    if (file.type.match('image.*')) {
-                        const reader = new FileReader();
-                        
-                        reader.onload = function(e) {
-                            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-                            previewContainer.style.display = 'block';
-                        };
-                        
-                        reader.readAsDataURL(file);
-                    } else if (file.type.match('video.*')) {
-                        // For videos, show a video preview and validate duration
-                        const videoURL = URL.createObjectURL(file);
-                        const videoElement = document.createElement('video');
-                        videoElement.src = videoURL;
-                        videoElement.controls = true;
-                        videoElement.style.maxWidth = '100%';
-                        videoElement.style.maxHeight = '300px';
-                        
-                        videoElement.addEventListener('loadedmetadata', function() {
-                            // Check if video is longer than 1 minute (60 seconds)
-                            if (this.duration > 60) {
-                                alert('Video must be 1 minute or less in duration.');
-                                // Clear the file input
-                                fileInput.value = '';
-                                return;
-                            }
-                            
-                            // Show the video preview if valid
-                            imagePreview.innerHTML = '';
-                            imagePreview.appendChild(videoElement);
-                            previewContainer.style.display = 'block';
-                        });
-                        
-                        videoElement.addEventListener('error', function() {
-                            alert('Error loading video file.');
-                            // Clear the file input
-                            fileInput.value = '';
-                        });
-                    }
-                }
-            }
-        });
-    </script>
+
+
 </body>
 </html>
+

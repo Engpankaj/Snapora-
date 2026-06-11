@@ -14,7 +14,9 @@
             <div class="logo">
                 <h1>Snapora</h1>
             </div>
-            <nav>
+
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav" aria-label="Primary navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="explore.html">Explore</a></li>
@@ -22,12 +24,36 @@
                     <li><a href="profile.html" class="active">Profile</a></li>
                 </ul>
             </nav>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Auth Buttons (desktop) -->
             <div class="auth-buttons">
                 <a href="login.html" class="btn btn-outline">Log In</a>
                 <a href="signup.html" class="btn btn-primary">Sign Up</a>
             </div>
         </div>
+
+        <!-- Mobile Menu Panel -->
+        <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li class="mobile-auth" id="mobile-auth">
+                    <a href="login.html" class="btn btn-outline">Log In</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </li>
+            </ul>
+        </div>
     </header>
+
 
     <!-- Profile Section -->
     <section class="profile-section">

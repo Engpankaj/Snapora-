@@ -99,9 +99,49 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Mobile menu toggle
+// ===== Mobile hamburger menu =====
 document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Only run if elements exist (some pages may not have the hamburger markup)
+    if (hamburger && mobileMenu) {
+        const setOpen = (isOpen) => {
+            mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+            hamburger.setAttribute('aria-expanded', String(isOpen));
+        };
+
+        // Toggle when clicking hamburger button
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = mobileMenu.getAttribute('aria-hidden') === 'false';
+            setOpen(!isOpen);
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.getAttribute('aria-hidden') === 'false') {
+                if (!mobileMenu.contains(e.target) && e.target !== hamburger) {
+                    setOpen(false);
+                }
+            }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                setOpen(false);
+            }
+        });
+
+        // Close menu when user clicks any link inside the mobile menu
+        mobileMenu.querySelectorAll('a').forEach((a) => {
+            a.addEventListener('click', () => setOpen(false));
+        });
+    }
+
     // Initialize share counts from localStorage
+
     // Add a small delay to ensure HTML elements are fully loaded
     setTimeout(initializeShareCounts, 100);
     
@@ -230,16 +270,38 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Parse user data
-        const currentUser = JSON.parse(userData);
+        // Parse user data (may be null for non-logged users)
+        const currentUser = userData ? JSON.parse(userData) : null;
         
         // Check if we're viewing another user's profile
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('user');
         
-        if (userId && userId !== currentUser.id.toString()) {
+        if (!currentUser && userId) {
+           // Non-logged user viewing another user's profile => allow view-only
+           window.currentUsername = '';
+           loadUserProfile(userId);
+           window.currentUserId = userId;
+           const profileTabs = document.getElementById('profile-tabs');
+           if (profileTabs) {
+               const tabs = profileTabs.querySelectorAll('.tab');
+               if (tabs.length >= 4) {
+                   tabs[2].style.display = 'none';
+                   tabs[3].style.display = 'none';
+               }
+               const videosTabButton = document.getElementById('videos-tab-button');
+               if (videosTabButton) {
+                   videosTabButton.style.display = 'inline-block';
+               }
+               showTab('posts', tabs[0]);
+           }
+           return;
+        }
+        
+        if (userId && currentUser && userId !== currentUser.id.toString()) {
            // Viewing another user's profile
            loadUserProfile(userId);
+
            // Store current viewed user ID
            window.currentUserId = userId;
            
@@ -855,11 +917,10 @@ function showTab(tabName, element) {
 
 // Function to load content for a specific tab
 function loadTabContent(tabName) {
+    // Viewing content should be allowed without login.
+    // Actions like like/collect/download may still require login.
     const token = localStorage.getItem('token');
-    if (!token) {
-        alert('Please log in to view this content.');
-        return;
-    }
+
     
     // Clear the grid content before loading new content
     switch(tabName) {
@@ -926,12 +987,8 @@ function loadTabContent(tabName) {
 function loadUserPosts(userId, username) {
     const token = localStorage.getItem('token');
     
-    if (!token) {
-        document.getElementById('posts-grid').innerHTML = '<p class="no-images-message">Please log in to view posts.</p>';
-        return;
-    }
-    
-    // Fetch user's posts from server (including videos)
+    // Fetch user's posts from server (including videos). View-only works without login.
+
     fetch(`${API_BASE_URL}/user/${userId}/images?limit=all`, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -1982,12 +2039,8 @@ function copyUrlToClipboard(url) {
 function loadUserVideos(userId) {
     const token = localStorage.getItem('token');
     
-    if (!token) {
-        document.getElementById('videos-grid').innerHTML = '<p class="no-images-message">Please log in to view videos.</p>';
-        return;
-    }
-    
-    // Fetch user's videos from server
+    // Fetch user's videos from server. View-only works without login.
+
     fetch(`${API_BASE_URL}/user/${userId}/videos?limit=all`, {
         headers: {
             'Authorization': `Bearer ${token}`

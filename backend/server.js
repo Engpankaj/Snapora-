@@ -432,22 +432,24 @@ app.delete('/api/profile', authenticateToken, (req, res) => {
 });
 
 // Upload image
+// Note: multer field name is IMPORTANT and must match frontend `formData.append('image', file)`.
 app.post('/api/upload', authenticateToken, upload.single('image'), (req, res) => {
     try {
         console.log('Upload request received:', req.file, req.body);
         if (!req.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
-        
+
         const { title, description, tags, category, nsfw } = req.body;
         const user_id = req.user.id;
         const filename = req.file.filename;
         const filepath = req.file.path;
-        
+
         // Server-side validation
         if (!title) {
             return res.status(400).json({ error: 'Title is required' });
         }
+
         
         if (title.length < 3) {
             return res.status(400).json({ error: 'Title must be at least 3 characters long' });
